@@ -68,4 +68,9 @@ public class ProductCategoryService {
     }
     productCategoryRepository.deleteByName(name);
   }
+
+  public ProductCategory getProductCategoryDAO(String name) {
+    return productCategoryRepository.findByName(name)
+        .orElseThrow(() -> new ResourceNotFoundException("Product Category not found"));
+  }
 }

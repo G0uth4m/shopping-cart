@@ -3,7 +3,9 @@ package com.example.shoppingcart.controller;
 import com.example.shoppingcart.dto.ProductCategoryCreationDTO;
 import com.example.shoppingcart.dto.ProductCategoryDTO;
 import com.example.shoppingcart.dto.ProductCategoryUpdationDTO;
+import com.example.shoppingcart.dto.ProductDTO;
 import com.example.shoppingcart.service.ProductCategoryService;
+import com.example.shoppingcart.service.ProductService;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,10 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/api/products/categories")
+@RequestMapping("/v1/api/categories")
 public class ProductCategoryController {
 
   private final ProductCategoryService productCategoryService;
+  private final ProductService productService;
 
   @PostMapping
   public ProductCategoryDTO createProductCategory(
@@ -50,6 +53,12 @@ public class ProductCategoryController {
   @DeleteMapping("/{categoryName}")
   public void deleteCategory(@PathVariable String categoryName) {
     productCategoryService.deleteProductCategory(categoryName);
+  }
+
+  @GetMapping("/{categoryName}/products")
+  public List<ProductDTO> getProducts(@PathVariable String categoryName,
+      @ParameterObject Pageable pageable) {
+    return productService.getProductsByCategory(categoryName, pageable);
   }
 
 }
