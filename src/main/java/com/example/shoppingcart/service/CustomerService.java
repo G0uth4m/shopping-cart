@@ -58,4 +58,9 @@ public class CustomerService {
     }
     customerRepository.deleteById(customerId);
   }
+
+  public Customer getCustomerDAO(Long customerId) {
+    return customerRepository.findById(customerId)
+        .orElseThrow(() -> new ResourceNotFoundException("Customer not found"));
+  }
 }

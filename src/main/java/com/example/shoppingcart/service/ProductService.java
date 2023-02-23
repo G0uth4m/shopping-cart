@@ -74,4 +74,9 @@ public class ProductService {
         .map(product -> mapper.map(product, ProductDTO.class)).collect(Collectors.toList());
   }
 
+  public Product getProductDAO(Long productId) {
+    return productRepository.findById(productId)
+        .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+  }
+
 }
