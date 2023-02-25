@@ -64,4 +64,8 @@ public class CartService {
     cartItemRepository.delete(cartItem);
   }
 
+  public List<CartItem> getAllCartItems(Long customerId) {
+    return cartItemRepository.findAllByCustomerId(customerId);
+  }
+
 }
